@@ -2,34 +2,29 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
+const image = require('../assets/background-image.png');
+
 export default class Start extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			backgroundColor: '',
-			buttonPressed: false,
+			color: ''
 		};
 	}
 	
 	render() {
-		const image = require('../assets/background-image.png');
-		
 		return (
 			<ImageBackground source={image} style={styles.backgroundImage}>
-				<View style={styles.container}>
-					<View style={styles.appTitleContainer}>
-						<Text style={styles.appTitle}>The Chat App</Text>
-					</View>
+				<View style={{ flex: 1, justifyContent: 'center' }}>
+					<Text style={styles.appTitle}>Chat App</Text>
 					
-					<View style={styles.userContainer}>
+					<View style={styles.startContainer}>
 						<TextInput
-							style={styles.textInput}
+							style={styles.nameInput}
 							onChangeText={(name) => this.setState({ name })}
-							value={this.state.name}
-							placeholder='Enter your name...'
+							value={this.state.name} placeholder='Enter your name...'
 						/>
-						<Text style={styles.usernameText}>{this.state.name}</Text>
 						
 						<View style={styles.colorContainer}>
 							<Text style={styles.colorTitle}>Choose a background:</Text>
@@ -57,11 +52,11 @@ export default class Start extends React.Component {
 							<Button
 								style={styles.chatButtonText}
 								title='Start chatting!'
-								color='white'
+								color='black'
 								onPress={() => this.props.navigation.navigate('Chat',
 								{
 									name: this.state.name,
-									backgroundColor: this.state.backgroundColor
+									backgroundColor: this.state.color
 								})}
 							/>
 						</View>
@@ -80,16 +75,6 @@ const styles = StyleSheet.create({
 		height: '100%',
 		resizeMode: 'cover',
 	},
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 15,
-	},
-	appTitleContainer: {
-		width: '88%',
-		height: '56%'
-	},
 	appTitle: {
 		position: 'relative',
 		textAlign: 'center',
@@ -102,14 +87,16 @@ const styles = StyleSheet.create({
 		fontSize: 45,
 		fontWeight: '600',
 	},
-	userContainer: {
+	startContainer: {
+		flex: 1,
 		width: '88%',
 		height: '44%',
-		backgroundColor: 'white',
-		padding: 'auto',
-		borderRadius: 5,
+		backgroundColor: '#fff',
+		marginBottom: 40,
+		alignSelf: 'center',
+		alignItems: 'center'
 	},
-	textInput: {
+	nameInput: {
 		borderColor: 'gray',
 		color: '#757083',
 		borderWidth: 1,
@@ -120,15 +107,10 @@ const styles = StyleSheet.create({
 		padding: 5,
 		margin: 20,
 	},
-	usernameText: {
-		fontSize: 16,
-		fontWeight: '600',
-		marginLeft: 20,
-	},
 	colorContainer: {
 		margin: 20
 	},
-	colorTitle: {
+	colorChoiceText: {
 		fontSize: 16,
 		fontWeight: '300',
 		color: '#757083',
@@ -168,7 +150,7 @@ const styles = StyleSheet.create({
 		margin: 10
 	},
 	chatButton: {
-		backgroundColor: '#000e00',
+		backgroundColor: '#000000',
 		marginHorizontal: 90
 	},
 	chatButtonText: {
