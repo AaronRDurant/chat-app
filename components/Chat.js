@@ -12,7 +12,7 @@ import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 const firebase = require('firebase');
 require('firebase/firestore');
 
-class Chat extends Component {
+export default class Chat extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,7 +23,7 @@ class Chat extends Component {
 				name: '',
 				avatar: '',
 			},
-		};
+		}
 
 		// Connects to Firebase database
 		const firebaseConfig = {
@@ -49,9 +49,14 @@ class Chat extends Component {
 
 		this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
 			if (!user) {
-				await firebase.auth().signInAnonymously();
+				try {
+					await firebase.auth().signInAnonymously();
+			} catch (error) {
+				console.error(error.message);
 			}
-			// Updates user state with data of active user
+		}		
+
+			// Updates user state
 			this.setState({
 				uid: user.uid,
 				user: {
@@ -61,13 +66,14 @@ class Chat extends Component {
 				},
 				messages: [],
 			});
+			
+			// Creates reference to active user's messages so user can see all messages
+			this.referenceChatMessages = firebase.firestore().collection('messages');
+			
 			// Listens for collection changes for current user
 			this.unsubscribeChatUser = this.referenceChatMessages
 				.orderBy('createdAt', 'desc')
 				.onSnapshot(this.onCollectionUpdate);
-
-			// Creates reference to active user's messages so user can see all messages
-			this.referenceChatMessages = firebase.firestore().collection('messages');
 		});
 	}
 
@@ -118,10 +124,10 @@ class Chat extends Component {
 			}),
 			() => {
 				this.addMessage();
-			}
-		);
+			});
 	}
 
+	// Chat bubble customization
 	renderBubble(props) {
 		return (
 			<Bubble
@@ -136,7 +142,7 @@ class Chat extends Component {
 	}
 
 	render() {
-		const color = this.props.route.params.color; // Color user selected on start page
+		const color = this.props.route.params.color; // Color selected on start page
 		const styles = StyleSheet.create({
 			container: {
 				backgroundColor: color,
@@ -150,7 +156,7 @@ class Chat extends Component {
 		return (
 			<View style={styles.container}>
 				<GiftedChat
-					renderBubble={this.renderBubble}
+					renderBubble={this.renderBubble.bind(this)}
 					messages={messages}
 					onSend={(messages) => this.onSend(messages)}
 					user={{
@@ -166,5 +172,3 @@ class Chat extends Component {
 		);
 	}
 }
-
-export default Chat;

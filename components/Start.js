@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import {
 	StyleSheet,
 	View,
@@ -8,114 +7,101 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView,
 	Platform,
+	Alert
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+
+const backgroundImage = require('../assets/background-image.png');
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
 
 const Start = ({ navigation }) => {
 	const [name, setName] = useState('');
 	const [color, setColor] = useState('#ffffff');
-
-	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
-	const background = require('../assets/background-image.png');
-
-	// Event Handler (when user clicks 'Start Chatting')
-	const handlePress = (text, color) => {
-	if (!text) {
-		return Alert.alert('Please enter a name');
+	const onButtonPress = (name) => {
+		if (name === "") {
+			// Alerts user to enter name if nothing was entered
+			return Alert.alert("Enter your name to continue!");
+		}
+		navigation.navigate('Chat', { name, color });
 	}
-	navigation.navigate('Chat', { name, color });
-	};
-
+	
 	return (
-	<ImageBackground
-		style={styles.background}
-		resizeMode='cover'
-		source={background}
-	>
-		<KeyboardAvoidingView
-		behavior='height'
-		keyboardVerticalOffset={keyboardVerticalOffset}
-		style={styles.container}
-		title='Chat App'
-		>
-		<Text style={styles.title}>Welcome to the Chat App</Text>
-		<View style={styles.box}>
-			<View style={styles.inputContainer}>
-			<TextInput
-				style={styles.textInput}
-				value={name}
-				onChangeText={(name) => setName(name)}
-				placeholder='Your name'
-			/>
-			</View>
-
-			<Text style={styles.text}>Choose background color:</Text>
-			<View style={styles.bgColorContainer}>
-			<TouchableOpacity
-				accessible={true}
-				accessibilityLabel='Black background'
-				accessibilityHint='Choose background color'
-				accessibilityRole='button'
-				style={styles.color1}
-				onPress={() => setColor('#090C08')}
-			></TouchableOpacity>
-			<TouchableOpacity
-				accessible={true}
-				accessibilityLabel='Purple background'
-				accessibilityHint='Choose background color'
-				accessibilityRole='button'
-				style={styles.color2}
-				onPress={() => setColor('#474056')}
-			></TouchableOpacity>
-			<TouchableOpacity
-				accessible={true}
-				accessibilityLabel='Blue background'
-				accessibilityHint='Choose background color'
-				accessibilityRole='button'
-				style={styles.color3}
-				onPress={() => setColor('#8095A5')}
-			></TouchableOpacity>
-			<TouchableOpacity
-				accessible={true}
-				accessibilityLabel='Green background'
-				accessibilityHint='Choose background color'
-				accessibilityRole='button'
-				style={styles.color4}
-				onPress={() => setColor('#B9C6AE')}
-			></TouchableOpacity>
-			</View>
-			<Text style={styles.selectedColor}>Your color:</Text>
-			<View
-			style={{
-				backgroundColor: color,
-				borderWidth: 1,
-				borderColor: '#2A323C',
-				borderRadius: 5,
-				width: '25%',
-				height: 20,
-				marginBottom: 10,
-				marginLeft: 20,
-			}}
-			></View>
-			<TouchableOpacity
-			accessible={true}
-			accessibilityLabel='Chat button'
-			accessibilityHint='Navigate to chat screen'
-			accessibilityRole='button'
-			style={styles.btnContainer}
+			<ImageBackground
+				style={styles.backgroundImage}
+				resizeMode='cover'
+				source={backgroundImage}
 			>
-			<Text
-				style={styles.btnChat}
-				onPress={() => handlePress(name, color)}
+			<KeyboardAvoidingView
+				behavior='height'
+				keyboardVerticalOffset={keyboardVerticalOffset}
+				style={styles.container}
+				title='Chat App'
 			>
+			<Text style={styles.title}>Welcome to the Chat App</Text>
+			<View style={styles.box}>
+				<View style={styles.inputContainer}>
+					<TextInput
+						style={styles.textInput}
+						value={name}
+						onChangeText={(name) => setName(name)}
+						placeholder='Your name'
+					/>
+				</View>
+				
+				<Text style={styles.text}>Choose background color:</Text>
+				<View style={styles.bgColorContainer}>
+					<TouchableOpacity
+						accessible={true}
+						accessibilityLabel='Black background'
+						accessibilityHint='Choose background color'
+						accessibilityRole='button'
+						style={styles.color1}
+						onPress={() => setColor('#090C08')}
+					></TouchableOpacity>
+					<TouchableOpacity
+						accessible={true}
+						accessibilityLabel='Purple background'
+						accessibilityHint='Choose background color'
+						accessibilityRole='button'
+						style={styles.color2}
+						onPress={() => setColor('#474056')}
+					></TouchableOpacity>
+					<TouchableOpacity
+						accessible={true}
+						accessibilityLabel='Blue background'
+						accessibilityHint='Choose background color'
+						accessibilityRole='button'
+						style={styles.color3}
+						onPress={() => setColor('#8095A5')}
+					></TouchableOpacity>
+					<TouchableOpacity
+						accessible={true}
+						accessibilityLabel='Green background'
+						accessibilityHint='Choose background color'
+						accessibilityRole='button'
+						style={styles.color4}
+						onPress={() => setColor('#B9C6AE')}
+					></TouchableOpacity>
+				</View>
+				<TouchableOpacity
+				accessible={true}
+				accessibilityLabel='Chat button'
+				accessibilityHint='Navigate to chat screen'
+				accessibilityRole='button'
+				style={styles.btnContainer}
+			>
+				<Text
+					style={styles.btnChat}
+					onPress={() => onButtonPress(name, color)}
+				>
 				Start Chatting
-			</Text>
+				</Text>
 			</TouchableOpacity>
-		</View>
-		</KeyboardAvoidingView>
-	</ImageBackground>
-	);
-};
+			</View>
+			</KeyboardAvoidingView>
+			</ImageBackground>
+		);
+	}
 
 export default Start;
 
@@ -133,7 +119,7 @@ const styles = StyleSheet.create({
 	textAlign: 'center',
 	marginTop: 10,
 	},
-	background: {
+	backgroundImage: {
 	flex: 1,
 	},
 	box: {
