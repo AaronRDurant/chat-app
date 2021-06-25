@@ -30,13 +30,13 @@ class Chat extends Component {
 		};
 
 		const firebaseConfig = {
-			apiKey: 'AIzaSyAr7k41KHO2yRylrf5P4TXlmIBYGmy1tlk',
-			authDomain: 'test-97f37.firebaseapp.com',
-			projectId: 'test-97f37',
-			storageBucket: 'test-97f37.appspot.com',
-			messagingSenderId: '883540949846',
-			appId: '1:883540949846:web:07e08bd6a925e0db66f4f7',
-			measurementId: 'G-23KWSF5HTT',
+			apiKey: "AIzaSyA9N5qKEBOQnmohnq0dPjmcio5spP02mww",
+			authDomain: "mobile-chat-3deed.firebaseapp.com",
+			projectId: "mobile-chat-3deed",
+			storageBucket: "mobile-chat-3deed.appspot.com",
+			messagingSenderId: "943555585381",
+			appId: "1:943555585381:web:53fbea79110fa0bbcead8c",
+			measurementId: "G-VYLKC7FBJ4"
 		};
 
 		// Connect to Firebase
