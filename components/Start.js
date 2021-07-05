@@ -12,19 +12,19 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 
 const Start = ({ navigation }) => {
-	// Component State
+	// Component state
 	const [name, setName] = useState('');
 	const [color, setColor] = useState('#090C08');
-
+	
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
 	const background = require('../assets/background-image.png');
-
+	
 	// Event Handler (when user clicks 'Start Chatting')
 	const handlePress = (text, color) => {
 		if (!text) {
 			return Alert.alert('Please enter a name');
 		}
-		navigation.navigate('Chat', { name, color });
+		navigation.navigate('Chat', { name, color })
 	};
 
 	return (
@@ -39,18 +39,18 @@ const Start = ({ navigation }) => {
 				style={styles.container}
 				title='Chat App'
 			>
-				<Text style={styles.title}>Welcome to the Chat App</Text>
+				<Text style={styles.title}>Welcome to the Chat App!</Text>
 				<View style={styles.box}>
 					<View style={styles.inputContainer}>
 						<TextInput
 							style={styles.textInput}
 							value={name}
 							onChangeText={(name) => setName(name)}
-							placeholder='Your Name'
+							placeholder='Your name'
 						/>
 					</View>
-
-					<Text style={styles.text}>Choose Background Color:</Text>
+					
+					<Text style={styles.text}>Choose background color:</Text>
 					<View style={styles.bgColorContainer}>
 						<TouchableOpacity
 							accessible={true}
@@ -85,7 +85,7 @@ const Start = ({ navigation }) => {
 							onPress={() => setColor('#B9C6AE')}
 						></TouchableOpacity>
 					</View>
-					<Text style={styles.selectedColor}>Selected Color:</Text>
+					<Text style={styles.selectedColor}>Selected color:</Text>
 					<View
 						style={{
 							backgroundColor: color,
@@ -109,7 +109,7 @@ const Start = ({ navigation }) => {
 							style={styles.btnChat}
 							onPress={() => handlePress(name, color)}
 						>
-							Start Chatting
+							Start chatting
 						</Text>
 					</TouchableOpacity>
 				</View>
