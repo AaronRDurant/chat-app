@@ -146,14 +146,15 @@ class Chat extends Component {
 		}
 	};
 	
-	// Delete messages in client-side storage
-	deleteMessages = async () => {
+	// Delete testing messages in client-side storage
+	deleteMessages = async () =>  {
 		try {
 			await AsyncStorage.removeItem('messages');
+			setMessages([])
 		} catch (error) {
 			console.log(error.message);
 		}
-	};
+	}
 	
 	// Adds messages to cloud storage
 	addMessage() {
