@@ -12,19 +12,19 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 
 const Start = ({ navigation }) => {
-	// Component state
+	// Component State
 	const [name, setName] = useState('');
 	const [color, setColor] = useState('#090C08');
-	
+
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
 	const background = require('../assets/background-image.png');
-	
+
 	// Event Handler (when user clicks 'Start Chatting')
 	const handlePress = (text, color) => {
 		if (!text) {
 			return Alert.alert('Please enter a name');
 		}
-		navigation.navigate('Chat', { name, color })
+		navigation.navigate('Chat', { name, color });
 	};
 
 	return (
@@ -46,10 +46,10 @@ const Start = ({ navigation }) => {
 							style={styles.textInput}
 							value={name}
 							onChangeText={(name) => setName(name)}
-							placeholder='Your name'
+							placeholder='Your Name'
 						/>
 					</View>
-					
+
 					<Text style={styles.text}>Choose background color:</Text>
 					<View style={styles.bgColorContainer}>
 						<TouchableOpacity
@@ -85,7 +85,7 @@ const Start = ({ navigation }) => {
 							onPress={() => setColor('#B9C6AE')}
 						></TouchableOpacity>
 					</View>
-					<Text style={styles.selectedColor}>Selected color:</Text>
+					<Text style={styles.selectedColor}>You chose:</Text>
 					<View
 						style={{
 							backgroundColor: color,
@@ -109,7 +109,7 @@ const Start = ({ navigation }) => {
 							style={styles.btnChat}
 							onPress={() => handlePress(name, color)}
 						>
-							Start chatting
+							Let me in!
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -126,15 +126,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		alignItems: 'center',
-		// fontFamily: 'Poppins-Regular',
 	},
 	title: {
 		fontSize: 45,
-		// fontFamily: 'Poppins-Bold',
 		fontWeight: '600',
 		color: '#FFF',
 		textAlign: 'center',
-		marginTop: 10,
+		marginTop: 90,
 	},
 	background: {
 		flex: 1,
@@ -225,11 +223,10 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 	},
 	btnChat: {
-		fontSize: 16,
-		// fontFamily: 'Poppins-Bold',
+		fontSize: 17,
 		fontWeight: '600',
 		color: '#fff',
-		padding: 20,
+		padding: 15,
 		textAlign: 'center',
 	},
 	btnContainer: {
